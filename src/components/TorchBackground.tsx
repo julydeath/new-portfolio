@@ -39,6 +39,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { HeroBackGround } from "./HeroBackGround";
+import Image from "next/image";
 
 export const TorchHero = ({ text }: { text: string }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -96,6 +97,12 @@ export const TorchHero = ({ text }: { text: string }) => {
             rgba(0, 0, 0, 0) 20%
           )`,
         }}
+      />
+      <Image
+        className="item-center"
+        alt="manoj-portfolio-blue"
+        src="blue-gradient.svg"
+        layout="fill"
       />
 
       {/* Hero Background with text */}
