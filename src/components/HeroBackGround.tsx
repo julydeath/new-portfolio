@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import HandWritten from "./HandWritten";
 
 export const HeroBackGround = ({
   text,
