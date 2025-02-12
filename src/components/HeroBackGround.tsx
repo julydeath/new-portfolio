@@ -8,7 +8,6 @@ export const HeroBackGround = ({
 }: {
   text: string;
   duration?: number;
-  automatic?: boolean;
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
@@ -29,12 +28,11 @@ export const HeroBackGround = ({
 
   return (
     <div className="flex flex-col items-center justify-center h-full text-center">
-      {/* SVG (Small height, but large text inside) */}
       <svg
         ref={svgRef}
         width="100%"
-        height="200px" // Reduced height to remove gap
-        viewBox="0 0 300 50" // Larger viewBox keeps text big
+        height="200px"
+        viewBox="0 0 300 50"
         xmlns="http://www.w3.org/2000/svg"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -78,42 +76,51 @@ export const HeroBackGround = ({
         {/* Animated Stroke Text */}
         <motion.text
           x="50%"
-          y="50%" // Adjusted to keep text centered
+          y="50%"
           textAnchor="middle"
           dominantBaseline="middle"
-          strokeWidth="0.3"
-          fontSize="32px" // Large text size
-          className="font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800 fill-transparent"
-          initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
-          animate={{ strokeDashoffset: 0, strokeDasharray: 1000 }}
-          transition={{ duration: 4, ease: "easeInOut" }}
+          strokeWidth="0.5"
+          fontSize="32px"
+          className="font-[helvetica] font-bold stroke-neutral-200"
+          initial={{
+            strokeDasharray: 1000,
+            strokeDashoffset: 1000,
+            fill: "transparent",
+          }}
+          animate={{
+            strokeDashoffset: 0,
+            transition: { duration: 3, ease: "easeInOut" },
+          }}
         >
           {text}
         </motion.text>
 
-        {/* Masked Text with Gradient */}
-        <text
+        {/* Masked Text with Gradient & Fill Animation */}
+        <motion.text
           x="50%"
           y="50%"
           textAnchor="middle"
           dominantBaseline="middle"
           stroke="url(#textGradient)"
-          strokeWidth="0.3"
-          fontSize="32px" // Large text size
+          strokeWidth="0.5"
+          fontSize="32px"
           mask="url(#textMask)"
-          className="font-[helvetica] font-bold fill-black"
+          className="font-[helvetica] font-bold"
+          initial={{ fill: "transparent" }}
+          animate={{
+            fill: hovered ? "url(#textGradient)" : "white",
+            transition: { delay: 3, duration: 0.5, ease: "easeInOut" },
+          }}
         >
           {text}
-        </text>
+        </motion.text>
       </svg>
 
-      {/* Description (No Extra Gap Now) */}
       <div className="text-lg text-gray-300 max-w-xl mb-2 tracking-widest">
-        I&apos;m passionate Full Stack web developer having an experience of web
-        applications with Nodejs, React.js, Next.js.
+        I&apos;m a passionate Full Stack web developer with experience in
+        Node.js, React.js, and Next.js.
       </div>
 
-      {/* Buttons */}
       <div className="flex gap-6 mt-4">
         <button className="px-6 py-3 rounded-xl bg-white text-black font-semibold border-2 border-black shadow-md hover:shadow-lg transition-all">
           Explore Projects

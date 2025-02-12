@@ -41,7 +41,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { HeroBackGround } from "./HeroBackGround";
 import Image from "next/image";
 
-export const TorchHero = ({ text }: { text: string }) => {
+export const TorchHero = ({
+  text,
+  height = "100vh", // Allow custom height with default
+}: {
+  text: string;
+  height?: string;
+}) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [textBounds, setTextBounds] = useState({
     x: 0,
@@ -49,28 +55,38 @@ export const TorchHero = ({ text }: { text: string }) => {
     width: 0,
     height: 0,
   });
+  const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
-  // Update the torch effect position
+  // Update the torch effect position relative to container
   const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
   };
 
   useEffect(() => {
-    if (textRef.current) {
-      const rect = textRef.current.getBoundingClientRect();
+    if (textRef.current && containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const textRect = textRef.current.getBoundingClientRect();
       setTextBounds({
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height,
+        x: textRect.left - containerRect.left,
+        y: textRect.top - containerRect.top,
+        width: textRect.width,
+        height: textRect.height,
       });
     }
   }, []);
 
   return (
     <div
-      className="relative h-screen bg-black overflow-hidden"
+      ref={containerRef}
+      className="relative bg-black overflow-hidden"
+      style={{ height }}
       onMouseMove={handleMouseMove}
     >
       {/* Torch Background */}
@@ -98,12 +114,16 @@ export const TorchHero = ({ text }: { text: string }) => {
           )`,
         }}
       />
-      <Image
-        className="item-center"
-        alt="manoj-portfolio-blue"
-        src="blue-gradient.svg"
-        layout="fill"
-      />
+
+      <div className="absolute inset-0">
+        <Image
+          className="object-cover"
+          alt="manoj-portfolio-blue"
+          src="blue-gradient.svg"
+          fill
+          priority
+        />
+      </div>
 
       {/* Hero Background with text */}
       <div ref={textRef} className="absolute inset-0 flex justify-center">
