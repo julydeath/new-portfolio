@@ -9,29 +9,22 @@ const content = [
       "The core programming languages I use for development, ranging from low-level systems programming to high-level scripting.",
     content: (
       <div className="flex flex-wrap gap-3 p-4 text-white">
-        {[
-          "C",
-          "C++",
-          "Python",
-          "JavaScript",
-          "TypeScript",
-          "HTML",
-          "CSS",
-          "Bash",
-        ].map((lang) => (
-          <div
-            key={lang}
-            className="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-md"
-          >
-            <Image
-              src={`/skills/${lang.toLowerCase()}.svg`}
-              width={24}
-              height={24}
-              alt={lang}
-            />
-            {lang}
-          </div>
-        ))}
+        {["C", "C++", "Python", "JavaScript", "TypeScript", "HTML", "CSS"].map(
+          (lang) => (
+            <div
+              key={lang}
+              className="flex items-center gap-2 border border-zinc-700 px-4 py-2 rounded-md"
+            >
+              <Image
+                src={`/skills/${lang.toLowerCase()}.svg`}
+                width={24}
+                height={24}
+                alt={lang}
+              />
+              {lang}
+            </div>
+          )
+        )}
       </div>
     ),
   },
@@ -42,22 +35,22 @@ const content = [
     content: (
       <div className="flex flex-wrap gap-3 p-4 text-white">
         {[
-          "React.js",
-          "Next.js",
+          "React",
+          "Next",
           "Redux",
-          "React Query",
+          "ReactQuery",
           "TailwindCSS",
-          "Node.js",
+          "Node",
           "Express",
           "Hono",
-          "ShadCN/UI",
+          "ShadCN",
         ].map((framework) => (
           <div
             key={framework}
-            className="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-md"
+            className="flex items-center gap-2 border border-zinc-700 px-4 py-2 rounded-md"
           >
             <Image
-              src={`/${framework.toLowerCase()}.svg`}
+              src={`/skills/${framework.toLowerCase()}.svg`}
               width={24}
               height={24}
               alt={framework}
@@ -78,10 +71,10 @@ const content = [
           (db) => (
             <div
               key={db}
-              className="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-md"
+              className="flex items-center gap-2 border border-zinc-700 px-4 py-2 rounded-md"
             >
               <Image
-                src={`/${db.toLowerCase()}.svg`}
+                src={`/skills/${db.toLowerCase()}.svg`}
                 width={24}
                 height={24}
                 alt={db}
@@ -103,10 +96,10 @@ const content = [
           (tool) => (
             <div
               key={tool}
-              className="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-md"
+              className="flex items-center gap-2 border border-zinc-700 px-4 py-2 rounded-md"
             >
               <Image
-                src={`/${tool.toLowerCase()}.svg`}
+                src={`/skills/${tool.toLowerCase()}.svg`}
                 width={24}
                 height={24}
                 alt={tool}
@@ -118,15 +111,16 @@ const content = [
       </div>
     ),
   },
+  {},
 ];
 
 export default function StickyDemo() {
   return (
-    <div className="m-52">
-      <div className="text-white flex justify-center text-2xl font-bold">
+    <div className="my-64 md:my-72">
+      <div className="text-white flex justify-center text-6xl font-semibold pb-4">
         Tech Stack
       </div>
-      <div className="text-center text-gray-400 mb-8">
+      <div className="text-center text-gray-600 text-base mb-8">
         Peek into my software toolbox and preferred technology stacks
       </div>
       <StickyScroll content={content} />
